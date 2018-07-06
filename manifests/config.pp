@@ -1,15 +1,15 @@
-class klbr-puppet::config {
+class puppetmodule::config {
     #The "master" value in Hiera determines wich template to use.
-    $master                 = lookup('klbr-puppet::config:master')
-    $puppet_env             = lookup('klbr-puppet::config:puppet_env')
+    $master                 = lookup('puppetmodule::config:master')
+    $puppet_env             = lookup('puppetmodule::config:puppet_env')
     $puppet_desired_version = lookup('puppet_desired_version')
 
     if $puppet_desired_version == 4 or $puppet_desired_version == 5 {
         if $master == true {
             # we only need to use these variables if we're provisioning a puppetmaster
-            $topleveldomain = lookup('klbr-puppet::config:topleveldomain')
-            $dns_alt_names  = lookup('klbr-puppet::config:dns_alt_names') 
-            $template       = "klbr-puppet/master.erb"
+            $topleveldomain = lookup('puppetmodule::config:topleveldomain')
+            $dns_alt_names  = lookup('puppetmodule::config:dns_alt_names') 
+            $template       = "puppetmodule/master.erb"
             exec { 'set permissions on puppet code directory for the puppet user':
                 command => '/usr/bin/setfacl -Rdm u:puppet:r-X /etc/puppetlabs/code',
                 unless  => '/usr/bin/getfacl /etc/puppetlabs/code | grep -q "default:user:puppet:r-x"',
@@ -19,7 +19,7 @@ class klbr-puppet::config {
             }
         } else { 
             # if we are not a puppet master, select the client template
-            $template       = "klbr-puppet/client.erb"    
+            $template       = "puppetmodule/client.erb"    
         }
     } else {
         notify {
@@ -42,16 +42,16 @@ class klbr-puppet::config {
         group   => 'root',
         mode    => '0644',
         content => template("$template"), # as defined above
-        require => Class["klbr-puppet::install"],
-        notify  => Class["klbr-puppet::service"],
+        require => Class["puppetmodule::install"],
+        notify  => Class["puppetmodule::service"],
     }    
     file { "/etc/default/puppet":
         ensure  => present,
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
-        source  => 'puppet:///modules/klbr-puppet/defaults',
-        require => Class["klbr-puppet::install"],
-        notify  => Class["klbr-puppet::service"],
+        source  => 'puppet:///modules/puppetmodule/defaults',
+        require => Class["puppetmodule::install"],
+        notify  => Class["puppetmodule::service"],
     }
 }

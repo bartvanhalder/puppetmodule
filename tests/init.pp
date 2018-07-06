@@ -1,1 +1,1 @@
-include klbr-puppet
+include puppetmodule
