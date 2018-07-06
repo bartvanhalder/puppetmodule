@@ -1,0 +1,1 @@
+include klbr_puppetagent

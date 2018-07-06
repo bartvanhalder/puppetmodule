@@ -1,0 +1,21 @@
+---
+# Hiera code governs if a machine will become a puppet clinent or master
+# and what values to use in the /etc/puppet.conf templates.
+#
+# Example hiera code snippets for global, domain and host files: 
+# these should obviously be in different files, but grouped together 
+# here to maintain a good birds-eye view.
+
+# global.yaml:
+klbr_puppetagent::config:master: false
+klbr_puppetagent::config:topleveldomain: ''
+klbr_puppetagent::config:dns_alt_names: ''
+klbr_puppetagent::config:puppet_env: 'production'
+
+# transip.kaliber.io.yaml:
+klbr_puppetagent::config:topleveldomain: 'transip.kaliber.io'
+klbr_puppetagent::config:dns_alt_names: 'puppet.transip.kaliber.io'
+
+# puppetmaster in transip:
+# vm376.yaml:
+klbr_puppetagent::config:master: true
