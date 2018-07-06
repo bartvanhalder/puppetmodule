@@ -9,3 +9,4 @@ You can provision a Puppet master by setting puppetmodule::config::master to tru
 
 # Compatability
 Only tested on Ubuntu 14.04 and 16.04 with Puppet 4 and 5
+
