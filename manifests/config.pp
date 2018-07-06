@@ -1,14 +1,14 @@
 class puppetmodule::config {
     #The "master" value in Hiera determines wich template to use.
-    # $master                 = lookup('puppetmodule::config:master')
-    # $puppet_env             = lookup('puppetmodule::config:puppet_env')
-    # $puppet_desired_version = lookup('puppet_desired_version')
+    $master                 = lookup('puppetmodule::master')
+    $puppet_env             = lookup('puppetmodule::puppet_env')
+    $puppet_desired_version = lookup('puppet_desired_version')
 
     if $puppet_desired_version == 4 or $puppet_desired_version == 5 {
         if $master == true {
             # we only need to use these variables if we're provisioning a puppetmaster
-            # $topleveldomain = lookup('puppetmodule::config:topleveldomain')
-            # $dns_alt_names  = lookup('puppetmodule::config:dns_alt_names') 
+            $topleveldomain = lookup('puppetmodule::topleveldomain')
+            $dns_alt_names  = lookup('puppetmodule::dns_alt_names') 
             $template       = "puppetmodule/master.erb"
             exec { 'set permissions on puppet code directory for the puppet user':
                 command => '/usr/bin/setfacl -Rdm u:puppet:r-X /etc/puppetlabs/code',

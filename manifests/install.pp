@@ -2,7 +2,7 @@ class puppetmodule::install {
 
   # We define a "puppet_desired_version" in hiera to reflect the desired Puppet version.
   
-  $puppet_desired_version = lookup('puppetmodule::config:puppet_desired_version')
+  $puppet_desired_version = lookup('puppetmodule::puppet_desired_version')
 
   if $puppet_desired_version == 4 or $puppet_desired_version == 5 {
     # modify path before installing puppet 4
@@ -95,7 +95,7 @@ class puppetmodule::install {
     # EINDE van de PUPPET 4/5 selectie statements
 
     # if we have a puppet4 master on our hands, install the puppetserver
-    $master = lookup('puppetmodule::config:master')
+    $master = lookup('puppetmodule::master')
     if $master == true {
       package { 'puppetserver':
               ensure => latest,
