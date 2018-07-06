@@ -1,9 +1,9 @@
-class klbr_puppetagent::service {
+class klbr-puppet::service {
     if $::domain != "vagrant.lan" {
       service { 'puppet':
         ensure  => running,
         enable  => true,
-        require => Class["klbr_puppetagent::install"],
+        require => Class["klbr-puppet::install"],
       }
     }
 }

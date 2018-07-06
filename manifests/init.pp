@@ -1,3 +1,3 @@
-class klbr_puppetagent {
-  include klbr_puppetagent::install, klbr_puppetagent::config, klbr_puppetagent::service
+class klbr-puppet {
+  include klbr-puppet::install, klbr-puppet::config, klbr-puppet::service
 }

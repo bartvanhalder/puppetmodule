@@ -1,4 +1,4 @@
-class klbr_puppetagent::install {
+class klbr-puppet::install {
 
   # We define a "puppet_desired_version" in hiera to reflect the desired Puppet version.
   
@@ -35,8 +35,8 @@ class klbr_puppetagent::install {
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
-        content => template("klbr_puppetagent/00-puppet4.erb"),
-        notify  => Class["klbr_puppetagent::service"],
+        content => template("klbr-puppet/00-puppet4.erb"),
+        notify  => Class["klbr-puppet::service"],
       }
       # remove double puppet apt repo
       file { "/etc/apt/sources.list.d/pc_repo.list":
@@ -59,8 +59,8 @@ class klbr_puppetagent::install {
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
-        content => template("klbr_puppetagent/00-puppet5.erb"),
-        notify  => Class["klbr_puppetagent::service"],
+        content => template("klbr-puppet/00-puppet5.erb"),
+        notify  => Class["klbr-puppet::service"],
       }
       file { "/etc/apt/preferences.d/00-puppet4.pref":
         ensure  => absent,
@@ -95,7 +95,7 @@ class klbr_puppetagent::install {
     # EINDE van de PUPPET 4/5 selectie statements
 
     # if we have a puppet4 master on our hands, install the puppetserver
-    $master = lookup('klbr_puppetagent::config:master')
+    $master = lookup('klbr-puppet::config:master')
     if $master == true {
       package { 'puppetserver':
               ensure => latest,

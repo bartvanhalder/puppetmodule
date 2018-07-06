@@ -7,15 +7,15 @@
 # here to maintain a good birds-eye view.
 
 # global.yaml:
-klbr_puppetagent::config:master: false
-klbr_puppetagent::config:topleveldomain: ''
-klbr_puppetagent::config:dns_alt_names: ''
-klbr_puppetagent::config:puppet_env: 'production'
+klbr-puppet::config:master: false
+klbr-puppet::config:topleveldomain: ''
+klbr-puppet::config:dns_alt_names: ''
+klbr-puppet::config:puppet_env: 'production'
 
 # transip.kaliber.io.yaml:
-klbr_puppetagent::config:topleveldomain: 'transip.kaliber.io'
-klbr_puppetagent::config:dns_alt_names: 'puppet.transip.kaliber.io'
+klbr-puppet::config:topleveldomain: 'transip.kaliber.io'
+klbr-puppet::config:dns_alt_names: 'puppet.transip.kaliber.io'
 
 # puppetmaster in transip:
 # vm376.yaml:
-klbr_puppetagent::config:master: true
+klbr-puppet::config:master: true
