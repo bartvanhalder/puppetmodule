@@ -1,0 +1,20 @@
+### osx ###
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# this repo
+.vagrant
+manifests/locations/vagrant/nodes.pp
+modules/*
+
+# r10k
+.r10k-deploy.json

@@ -1,5 +1,8 @@
 ---
-puppetmodule::config:master:          false
-puppetmodule::config:topleveldomain:  ''
-puppetmodule::config:dns_alt_names:   ''
-puppetmodule::config:puppet_env:      'production'
+version: 5
+defaults:
+  datadir: data
+  data_hash: yaml_data
+- name: "klbr-puppetmodule module data"
+    paths:
+    - "global.yaml"    

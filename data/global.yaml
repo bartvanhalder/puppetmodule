@@ -1,0 +1,5 @@
+---
+puppetmodule::config:master:          false
+puppetmodule::config:topleveldomain:  ''
+puppetmodule::config:dns_alt_names:   ''
+puppetmodule::config:puppet_env:      'production'
