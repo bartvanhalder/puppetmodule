@@ -1,5 +1,7 @@
 ---
-puppetmodule::config:master:          false
-puppetmodule::config:topleveldomain:  ''
-puppetmodule::config:dns_alt_names:   ''
-puppetmodule::config:puppet_env:      'production'
+puppetmodule::config:master:                false
+puppetmodule::config:topleveldomain:        ''
+puppetmodule::config:dns_alt_names:         ''
+puppetmodule::config:puppet_env:            'production'
+puppetmodule::config:puppet_desired_version: 5
+
