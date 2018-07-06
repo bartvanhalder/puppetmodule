@@ -3,6 +3,7 @@ version: 5
 defaults:
   datadir: data
   data_hash: yaml_data
-- name: "klbr-puppetmodule module data"
+hierarchy:
+  - name: "klbr-puppetmodule module data"
     paths:
-    - "global.yaml"    
+    - "global.yaml"
