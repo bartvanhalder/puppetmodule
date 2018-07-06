@@ -1,8 +1,8 @@
 class puppetmodule::config {
     #The "master" value in Hiera determines wich template to use.
-    $master                 = lookup('puppetmodule::config:master')
-    $puppet_env             = lookup('puppetmodule::config:puppet_env')
-    $puppet_desired_version = lookup('puppet_desired_version')
+    # $master                 = lookup('puppetmodule::config:master')
+    # $puppet_env             = lookup('puppetmodule::config:puppet_env')
+    # $puppet_desired_version = lookup('puppet_desired_version')
 
     if $puppet_desired_version == 4 or $puppet_desired_version == 5 {
         if $master == true {
