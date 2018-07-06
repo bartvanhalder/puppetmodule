@@ -2,7 +2,7 @@ class puppetmodule::install {
 
   # We define a "puppet_desired_version" in hiera to reflect the desired Puppet version.
   
-  $puppet_desired_version = lookup('puppet_desired_version')
+  $puppet_desired_version = lookup('puppetmodule::config:puppet_desired_version')
 
   if $puppet_desired_version == 4 or $puppet_desired_version == 5 {
     # modify path before installing puppet 4

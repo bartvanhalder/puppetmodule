@@ -7,8 +7,8 @@ class puppetmodule::config {
     if $puppet_desired_version == 4 or $puppet_desired_version == 5 {
         if $master == true {
             # we only need to use these variables if we're provisioning a puppetmaster
-            $topleveldomain = lookup('puppetmodule::config:topleveldomain')
-            $dns_alt_names  = lookup('puppetmodule::config:dns_alt_names') 
+            # $topleveldomain = lookup('puppetmodule::config:topleveldomain')
+            # $dns_alt_names  = lookup('puppetmodule::config:dns_alt_names') 
             $template       = "puppetmodule/master.erb"
             exec { 'set permissions on puppet code directory for the puppet user':
                 command => '/usr/bin/setfacl -Rdm u:puppet:r-X /etc/puppetlabs/code',
