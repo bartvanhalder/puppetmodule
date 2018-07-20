@@ -14,7 +14,7 @@ class puppetmodule::config {
             # we only need to use these variables if we're provisioning a puppetmaster
             $topleveldomain = lookup('puppetmodule::topleveldomain')
             $dns_alt_names  = lookup('puppetmodule::dns_alt_names')
-            $template       = puppetmodule/master.erb
+            $template       = 'puppetmodule/master.erb'
             exec { 'set permissions on puppet code directory for the puppet user':
                 command => '/usr/bin/setfacl -Rdm u:puppet:r-X /etc/puppetlabs/code',
                 unless  => '/usr/bin/getfacl /etc/puppetlabs/code | grep -q "default:user:puppet:r-x"',
@@ -24,7 +24,7 @@ class puppetmodule::config {
             }
         } else {
             # if we are not a puppet master, select the client template
-            $template       = puppetmodule/client.erb
+            $template       = 'puppetmodule/client.erb'
         }
     } else {
         notify {
