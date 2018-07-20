@@ -1,7 +1,8 @@
+# This class installs the puppet packages
 class puppetmodule::install {
 
   # We define a "puppet_desired_version" in hiera to reflect the desired Puppet version.
-  
+
   $puppet_desired_version = lookup('puppetmodule::puppet_desired_version')
 
   if $puppet_desired_version == 4 or $puppet_desired_version == 5 {
@@ -14,14 +15,14 @@ class puppetmodule::install {
     }
 
     # remove old stuff
-    file { "/etc/apt/preferences.d/00-puppet.pref":
+    file { '/etc/apt/preferences.d/00-puppet.pref':
       ensure  => absent,
     }
     if $puppet_desired_version == 4 {
       apt::source { 'puppetlabs-pc1':
         location => 'http://apt.puppetlabs.com',
         repos    => 'PC1',
-        include    => {
+        include  => {
           'deb' => true,
         },
         key      => {
@@ -30,16 +31,16 @@ class puppetmodule::install {
         },
       }
 
-      file { "/etc/apt/preferences.d/00-puppet4.pref":
+      file { '/etc/apt/preferences.d/00-puppet4.pref':
         ensure  => present,
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
-        content => template("puppetmodule/00-puppet4.erb"),
-        notify  => Class["puppetmodule::service"],
+        content => template('puppetmodule/00-puppet4.erb'),
+        notify  => Class[puppetmodule::service],
       }
       # remove double puppet apt repo
-      file { "/etc/apt/sources.list.d/pc_repo.list":
+      file { '/etc/apt/sources.list.d/pc_repo.list':
         ensure  => absent,
       }
       $puppet_client_packages = ['puppet-agent', 'puppetlabs-release-pc1']
@@ -49,20 +50,20 @@ class puppetmodule::install {
       package { 'puppet5-release':
         ensure => purged,
       }
-      file { "/etc/apt/preferences.d/00-puppet5.pref":
+      file { '/etc/apt/preferences.d/00-puppet5.pref':
         ensure  => absent,
       }
     }
     elsif $puppet_desired_version == 5 {
-      file { "/etc/apt/preferences.d/00-puppet5.pref":
+      file { '/etc/apt/preferences.d/00-puppet5.pref':
         ensure  => present,
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
-        content => template("puppetmodule/00-puppet5.erb"),
-        notify  => Class["puppetmodule::service"],
+        content => template('puppetmodule/00-puppet5.erb'),
+        notify  => Class[puppetmodule::service],
       }
-      file { "/etc/apt/preferences.d/00-puppet4.pref":
+      file { '/etc/apt/preferences.d/00-puppet4.pref':
         ensure  => absent,
       }
       file { '/etc/apt/sources.list.d/puppetlabs-pc1.list':
@@ -72,11 +73,11 @@ class puppetmodule::install {
         ensure => purged,
       }
       # nu moeten we nog puppet5 repo installeren en package regelen
-      
+
       apt::source { 'puppetlabs':
         location => 'http://apt.puppetlabs.com',
         repos    => 'puppet5',
-        include    => {
+        include  => {
           'deb' => true,
         },
         key      => {
@@ -91,7 +92,7 @@ class puppetmodule::install {
 
       # we don't remove the old packages, they use the same init files and such
     }
-    
+
     # EINDE van de PUPPET 4/5 selectie statements
 
     # if we have a puppet4 master on our hands, install the puppetserver
