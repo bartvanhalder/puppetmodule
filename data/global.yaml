@@ -1,7 +1,7 @@
 ---
-puppetmodule:master:                false
-puppetmodule:topleveldomain:        ''
-puppetmodule:dns_alt_names:         ''
-puppetmodule:puppet_env:            'production'
-puppetmodule:puppet_desired_version: 5
+puppetmodule::master:                false
+puppetmodule::topleveldomain:        ''
+puppetmodule::dns_alt_names:         ''
+puppetmodule::puppet_env:            'production'
+puppetmodule::puppet_desired_version: 5
 
