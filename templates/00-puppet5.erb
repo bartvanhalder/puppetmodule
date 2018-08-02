@@ -1,11 +1,11 @@
 Package: puppet5-release
-Pin: version 5.0.0-1<%= @os['distro']['codename'] %>
+Pin: version 5.0.0-1<%= @lsbdistcodename %>
 Pin-Priority: 501
 
 Package: puppet-agent
-Pin: version 5.3.4-1<%= @os['distro']['codename'] %>
+Pin: version 5.3.4-1<%= @lsbdistcodename %>
 Pin-Priority: 501
 
 Package: puppetserver
-Pin: version 5.1.5-1<%= @os['distro']['codename'] %>
+Pin: version 5.1.5-1<%= @lsbdistcodename %>
 Pin-Priority: 501
