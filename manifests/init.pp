@@ -1,4 +1,10 @@
-# This class manaages all the components of a Puppet installation
-class puppetmodule {
-  include puppetmodule::install, puppetmodule::config, puppetmodule::service
+# This class manaages all the components of a Puppet installation for server and agents
+class puppetmodule (
+    $master,
+    $topleveldomain,
+    $dns_alt_names,
+    $puppet_env,
+    $puppet_desired_version,
+) {
+    include puppetmodule::install, puppetmodule::config, puppetmodule::service
 }

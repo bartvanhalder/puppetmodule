@@ -3,17 +3,16 @@
 # 
 # It uses templates to build the configuration
 
-class puppetmodule::config {
-    #The "master" value in Hiera determines wich template to use.
-    $master                 = lookup('puppetmodule::master')
-    $puppet_env             = lookup('puppetmodule::puppet_env')
-    $puppet_desired_version = lookup('puppetmodule::puppet_desired_version')
-
-    if $puppet_desired_version == 4 or $puppet_desired_version == 5 {
+class puppetmodule::config (
+    $master =          $::puppetmodule::master,
+    $topleveldomain =  $::puppetmodule::topleveldomain,
+    $dns_alt_names =   $::puppetmodule::dns_alt_names,
+    $enviornment =     $::puppetmodule::environment,
+    $desired_version = $::puppetmodule::desired_version,
+){
+    if $puppetmodule::puppet_desired_version == 4 or $puppetmodule::puppet_desired_version == 5 {
         if $master == true {
             # we only need to use these variables if we're provisioning a puppetmaster
-            $topleveldomain = lookup('puppetmodule::topleveldomain')
-            $dns_alt_names  = lookup('puppetmodule::dns_alt_names')
             $template       = 'puppetmodule/master.erb'
             exec { 'set permissions on puppet code directory for the puppet user':
                 command => '/usr/bin/setfacl -Rdm u:puppet:r-X /etc/puppetlabs/code',
@@ -28,8 +27,8 @@ class puppetmodule::config {
         }
     } else {
         notify {
-        'error':
-            name     => 'Unknown Puppet Version',
+        'error config':
+            name     => 'Config: Unknown Puppet Version',
             message  => 'I don\'t know what you want man, they only told me about Pupper version 4 and 5. What are we using nowadays?',
             withpath => true;
         }

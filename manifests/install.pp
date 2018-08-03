@@ -1,11 +1,6 @@
 # This class installs the puppet packages
 class puppetmodule::install {
-
-  # We define a "puppet_desired_version" in hiera to reflect the desired Puppet version.
-
-  $puppet_desired_version = lookup('puppetmodule::puppet_desired_version')
-
-  if $puppet_desired_version == 4 or $puppet_desired_version == 5 {
+  if $puppetmodule::puppet_desired_version == 4 or $puppetmodule::puppet_desired_version == 5 {
     # modify path before installing puppet 4
     # do not lock yourself out of the 'puppet loop'...
     file_line { 'path':
@@ -18,7 +13,7 @@ class puppetmodule::install {
     file { '/etc/apt/preferences.d/00-puppet.pref':
       ensure  => absent,
     }
-    if $puppet_desired_version == 4 {
+    if $puppetmodule::puppet_desired_version == 4 {
       apt::source { 'puppetlabs-pc1':
         location => 'http://apt.puppetlabs.com',
         repos    => 'PC1',
@@ -54,7 +49,7 @@ class puppetmodule::install {
         ensure  => absent,
       }
     }
-    elsif $puppet_desired_version == 5 {
+    elsif $puppetmodule::puppet_desired_version == 5 {
       file { '/etc/apt/preferences.d/00-puppet5.pref':
         ensure  => present,
         owner   => 'root',
@@ -96,7 +91,6 @@ class puppetmodule::install {
     # EINDE van de PUPPET 4/5 selectie statements
 
     # if we have a puppet4 master on our hands, install the puppetserver
-    $master = lookup('puppetmodule::master')
     if $master == true {
       package { 'puppetserver':
               ensure => latest,
@@ -105,8 +99,8 @@ class puppetmodule::install {
   }
   else {
     notify {
-        'error':
-            name     => 'Unknown Puppet Version',
+        'error install':
+            name     => 'Install: Unknown Puppet Version',
             message  => 'I don\'t know what you want man, they only told me about Pupper version 4 and 5. What are we using nowadays?',
             withpath => true;
     }
