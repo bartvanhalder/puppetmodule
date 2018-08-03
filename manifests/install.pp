@@ -101,7 +101,7 @@ class puppetmodule::install {
     notify {
         'error install':
             name     => 'Install: Unknown Puppet Version',
-            message  => 'I don\'t know what you want man, they only told me about Pupper version 4 and 5. What are we using nowadays?',
+            message  => 'Unsupported puppet version',
             withpath => true;
     }
   }

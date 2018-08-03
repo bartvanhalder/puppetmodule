@@ -27,11 +27,20 @@ class puppetmodule::config (
             # if we are not a puppet master, select the client template
             $template       = 'puppetmodule/client.erb'
         }
+        file { '/etc/puppetlabs/puppet/puppet.conf':
+            ensure  => present,
+            owner   => 'root',
+            group   => 'root',
+            mode    => '0644',
+            content => template($template), # as defined above
+            require => Class[puppetmodule::install],
+            notify  => Class[puppetmodule::service],
+        }
     } else {
         notify {
         'error config':
             name     => 'Config: Unknown Puppet Version',
-            message  => 'I don\'t know what you want man, they only told me about Pupper version 4 and 5. What are we using nowadays?',
+            message  => 'Unsupported puppet version',
             withpath => true;
         }
     }
@@ -42,15 +51,7 @@ class puppetmodule::config (
         group  => 'root',
         mode   => '0755',
     }
-    file { '/etc/puppetlabs/puppet/puppet.conf':
-        ensure  => present,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        content => template($template), # as defined above
-        require => Class[puppetmodule::install],
-        notify  => Class[puppetmodule::service],
-    }
+
     file { '/etc/default/puppet':
         ensure  => present,
         owner   => 'root',
