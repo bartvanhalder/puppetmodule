@@ -2,12 +2,13 @@ require 'spec_helper'
 
 describe 'puppetmodule' do
   let(:title) { 'puppetmodule' }
+
   # let(:pre_condition) { 'include puppetmodule' }
 
   # Can not test this as this aren't real class parameters... TODO: fix the code
   # context 'Unsupported version' do
   #   let :params do
-  #     { puppet_desired_version: '3',}
+  #     { desired_version: '3',}
   #   end
   #   it {
   #     is_expected.to compile.and_raise_error(/I don\'t know what you want man, they only told me about Pupper version 4 and 5. What are we using nowadays?/)

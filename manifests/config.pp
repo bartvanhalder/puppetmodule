@@ -4,13 +4,15 @@
 # It uses templates to build the configuration
 
 class puppetmodule::config (
+    # these are available in the main class scope 
+    # this class uses them to fill in the templates for the puppet.conf
     $master =          $::puppetmodule::master,
     $topleveldomain =  $::puppetmodule::topleveldomain,
     $dns_alt_names =   $::puppetmodule::dns_alt_names,
-    $enviornment =     $::puppetmodule::environment,
+    $environment =     $::puppetmodule::environment,
     $desired_version = $::puppetmodule::desired_version,
 ){
-    if $puppetmodule::puppet_desired_version == 4 or $puppetmodule::puppet_desired_version == 5 {
+    if $puppetmodule::desired_version == 4 or $puppetmodule::desired_version == 5 {
         if $master == true {
             # we only need to use these variables if we're provisioning a puppetmaster
             $template       = 'puppetmodule/master.erb'

@@ -3,8 +3,8 @@ class puppetmodule (
     $master,
     $topleveldomain,
     $dns_alt_names,
-    $puppet_env,
-    $puppet_desired_version,
+    $environment,
+    $desired_version,
 ) {
     include puppetmodule::install, puppetmodule::config, puppetmodule::service
 }
