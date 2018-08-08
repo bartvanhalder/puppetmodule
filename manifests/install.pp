@@ -6,7 +6,8 @@ class puppetmodule::install {
     file_line { 'path':
       path  => '/etc/environment',
       line  => 'PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/opt/puppetlabs/bin"',
-      match => 'PATH=\"\/usr\/local\/sbin\:\/usr\/local\/bin\:\/usr\/sbin\:\/usr\/bin\:\/sbin\:\/bin\:\/usr\/\games\:\/usr\/local\/games\"',
+      match => '^PATH=".*games"$',
+      # The default path ends with /usr/bin/games and does not have the puppet bin dir in it
     }
 
     # remove old stuff

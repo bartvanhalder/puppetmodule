@@ -6,5 +6,7 @@ class puppetmodule (
     $environment,
     $desired_version,
 ) {
-    include puppetmodule::install, puppetmodule::config, puppetmodule::service
+    include puppetmodule::install
+    include puppetmodule::config
+    include puppetmodule::service
 }
