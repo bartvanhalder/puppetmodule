@@ -4,4 +4,5 @@ puppetmodule::topleveldomain:  ''
 puppetmodule::dns_alt_names:   ''
 puppetmodule::environment:     'production'
 puppetmodule::desired_version: 5
+puppetmodule::puppetdb:        false
 

@@ -5,6 +5,7 @@ class puppetmodule (
     $dns_alt_names,
     $environment,
     $desired_version,
+    $puppetdb,
 ) {
     include puppetmodule::install
     include puppetmodule::config

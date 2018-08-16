@@ -11,6 +11,7 @@ class puppetmodule::config (
     $dns_alt_names =   $::puppetmodule::dns_alt_names,
     $environment =     $::puppetmodule::environment,
     $desired_version = $::puppetmodule::desired_version,
+    $puppetdb =        $::puppetmodule::puppetdb,
 ){
     if $puppetmodule::desired_version == 4 or $puppetmodule::desired_version == 5 {
         if $master == true {
