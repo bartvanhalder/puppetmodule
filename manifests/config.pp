@@ -10,10 +10,10 @@ class puppetmodule::config (
     $topleveldomain =  $::puppetmodule::topleveldomain,
     $dns_alt_names =   $::puppetmodule::dns_alt_names,
     $environment =     $::puppetmodule::environment,
-    $desired_version = $::puppetmodule::desired_version,
+    $major_version =   $::puppetmodule::major_version,
     $puppetdb =        $::puppetmodule::puppetdb,
 ){
-    if $puppetmodule::desired_version == 4 or $puppetmodule::desired_version == 5 {
+    if $puppetmodule::major_version == 4 or $puppetmodule::major_version == 5 {
         if $master == true {
             # we only need to use these variables if we're provisioning a puppetmaster
             $template       = 'puppetmodule/master.erb'

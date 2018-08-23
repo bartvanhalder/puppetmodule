@@ -1,11 +1,11 @@
 Package: puppetlabs-release
-Pin: version 1.1.0-4<%= @lsbdistcodename %>
+Pin: version <%= @release_version %><%= @lsbdistcodename %>
 Pin-Priority: 501
 
 Package: puppet-agent
-Pin: version 1.10.1-1<%= @lsbdistcodename %>
+Pin: version <%= @agent_version %><%= @lsbdistcodename %>
 Pin-Priority: 501
 
 Package: puppetserver
-Pin: version 2.7.2-1puppetlabs1
+Pin: version <%= @server_version %>
 Pin-Priority: 501

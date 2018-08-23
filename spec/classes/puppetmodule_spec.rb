@@ -22,7 +22,7 @@ describe 'puppetmodule' do
 
   # context 'unsupported version' do
   #   let :params do
-  #     { desired_version: '3' }
+  #     { major_version: '3' }
   #   end
 
   #   it { is_expected.to compile.and_raise_error(%r{Unsupported puppet version}) }
@@ -30,7 +30,7 @@ describe 'puppetmodule' do
 
   # context 'supported version' do
   #   let(:params) do
-  #     { desired_version: '4' }
+  #     { major_version: '4' }
   #   end
 
   #   it {

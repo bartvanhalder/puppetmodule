@@ -1,6 +1,10 @@
 # This class installs the puppet packages
-class puppetmodule::install {
-  if $puppetmodule::desired_version == 4 or $puppetmodule::desired_version == 5 {
+class puppetmodule::install (
+    $release_version = $::puppetmodule::release_version,
+    $agent_version =   $::puppetmodule::agent_version,
+    $server_version =  $::puppetmodule::server_version,
+){
+  if $puppetmodule::major_version == 4 or $puppetmodule::major_version == 5 {
     # modify path before installing puppet 4
     # do not lock yourself out of the 'puppet loop'...
     file_line { 'path':
@@ -14,7 +18,7 @@ class puppetmodule::install {
     file { '/etc/apt/preferences.d/00-puppet.pref':
       ensure  => absent,
     }
-    if $puppetmodule::desired_version == 4 {
+    if $puppetmodule::major_version == 4 {
       apt::source { 'puppetlabs-pc1':
         location => 'http://apt.puppetlabs.com',
         repos    => 'PC1',
@@ -50,7 +54,7 @@ class puppetmodule::install {
         ensure  => absent,
       }
     }
-    elsif $puppetmodule::desired_version == 5 {
+    elsif $puppetmodule::major_version == 5 {
       file { '/etc/apt/preferences.d/00-puppet5.pref':
         ensure  => present,
         owner   => 'root',
