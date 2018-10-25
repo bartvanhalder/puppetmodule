@@ -92,8 +92,49 @@ class puppetmodule::install (
 
       # we don't remove the old packages, they use the same init files and such
     }
+    elsif $puppetmodule::major_version == 6 {
+      file { '/etc/apt/preferences.d/00-puppet6.pref':
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        content => template('puppetmodule/00-puppet6.erb'),
+        notify  => Class[puppetmodule::service],
+      }
+      file { '/etc/apt/preferences.d/00-puppet4.pref':
+        ensure  => absent,
+      }
+      file { '/etc/apt/preferences.d/00-puppet5.pref':
+        ensure  => absent,
+      }
+      file { '/etc/apt/sources.list.d/puppetlabs-pc1.list':
+        ensure => absent,
+      }
+      package { 'puppetlabs-release-pc1':
+        ensure => purged,
+      }
+      # nu moeten we nog puppet5 repo installeren en package regelen
 
-    # EINDE van de PUPPET 4/5 selectie statements
+      apt::source { 'puppetlabs':
+        location => 'http://apt.puppetlabs.com',
+        repos    => 'puppet6',
+        include  => {
+          'deb' => true,
+        },
+        key      => {
+          'id'     => '6F6B15509CF8E59E6E469F327F438280EF8D349F',
+          'server' => 'pgp.mit.edu',
+        },
+      }
+
+      package { 'puppet-agent':
+          ensure => latest,
+      }
+
+      # we don't remove the old packages, they use the same init files and such
+    }
+
+    # EINDE van de PUPPET 4/5/6 selectie statements
 
     # if we have a puppet4 master on our hands, install the puppetserver
     if $puppetmodule::master == true {
