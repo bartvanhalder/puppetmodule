@@ -45,7 +45,7 @@ class puppetmodule::install (
       $purge_files = [
         '/etc/apt/sources.list.d/pc_repo.list',
         '/etc/apt/preferences.d/puppetlabs-pc1.list',
-        '/etc/apt/preferences.d/00-puppet6.pref',
+        '/etc/apt/preferences.d/00-puppet4.pref',
         '/etc/apt/preferences.d/00-puppet6.pref'
       ]
 
