@@ -3,6 +3,7 @@ class puppetmodule::install (
     $release_version = $::puppetmodule::release_version,
     $agent_version =   $::puppetmodule::agent_version,
     $server_version =  $::puppetmodule::server_version,
+    $major_version =    $::puppetmodule::major_version,
 ){
   if $puppetmodule::major_version == 4 or 5 or 6 {
     # modify path before installing puppet 4
@@ -30,7 +31,7 @@ class puppetmodule::install (
         '/etc/apt/preferences.d/00-puppet5.pref',
         '/etc/apt/preferences.d/00-puppet6.pref'
       ]
-            
+
       package { 'puppetlabs-release-pc1':
         ensure => latest,
       }
@@ -40,7 +41,7 @@ class puppetmodule::install (
 
       $repo          = 'puppet5'
       $pref_path     = '/etc/apt/preferences.d/00-puppet5.pref'
-      $pref_template = 'puppetmodule/00-puppet5.erb'
+      $pref_template = 'puppetmodule/00-puppet5andup.erb'
       $purge_packages = ['puppetlabs-release-pc1', 'puppet6-release']
       $purge_files = [
         '/etc/apt/sources.list.d/pc_repo.list',
@@ -54,7 +55,7 @@ class puppetmodule::install (
 
       $repo          = 'puppet6'
       $pref_path     = '/etc/apt/preferences.d/00-puppet6.pref'
-      $pref_template = 'puppetmodule/00-puppet6.erb'
+      $pref_template = 'puppetmodule/00-puppet5andup.erb'
       $purge_packages = ['puppetlabs-release-pc1', 'puppet5-release']
       $purge_files = [
         '/etc/apt/sources.list.d/pc_repo.list',
@@ -67,13 +68,13 @@ class puppetmodule::install (
     # EINDE van de PUPPET 4/5/6 selectie statements
 
     $purge_packages.each | String $purge_package | {
-      package { "$purge_package":
+      package { $purge_package:
         ensure => purged,
       }
     }
 
     $purge_files.each | String $purge_file | {
-      file { "$purge_file":
+      file { $purge_file:
         ensure => absent,
         force  => true,
       }
@@ -96,8 +97,8 @@ class puppetmodule::install (
         owner   => 'root',
         group   => 'root',
         mode    => '0644',
-        path    => "$pref_path",
-        content => template("$pref_template"),
+        path    => $pref_path,
+        content => template($pref_template),
         notify  => Class[puppetmodule::service],
     }
 
