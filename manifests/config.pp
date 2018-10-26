@@ -13,7 +13,7 @@ class puppetmodule::config (
     $major_version =   $::puppetmodule::major_version,
     $puppetdb =        $::puppetmodule::puppetdb,
 ){
-    if $puppetmodule::major_version == 4 or $puppetmodule::major_version == 5 or $puppetmodule::major_version == 6 {
+    if $puppetmodule::major_version == 4 or 5 or 6 {
         if $master == true {
             # we only need to use these variables if we're provisioning a puppetmaster
             $template       = 'puppetmodule/master.erb'
