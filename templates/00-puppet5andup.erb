@@ -1,0 +1,11 @@
+Package: puppet<%= @major_version %>-release
+Pin: version <%= @release_version %><%= @lsbdistcodename %>
+Pin-Priority: 501
+
+Package: puppet-agent
+Pin: version <%= @agent_version %><%= @lsbdistcodename %>
+Pin-Priority: 501
+
+Package: puppetserver
+Pin: version <%= @server_version %><%= @lsbdistcodename %>
+Pin-Priority: 501
