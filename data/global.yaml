@@ -3,11 +3,17 @@ puppetmodule::master:          false
 puppetmodule::topleveldomain:  ''
 puppetmodule::dns_alt_names:   ''
 puppetmodule::environment:     'production'
-puppetmodule::major_version:   5
+puppetmodule::major_version:   6
 puppetmodule::puppetdb:        false
+
 # puppetmodule::release_version: '5.0.0-1'
-# puppetmodule::agent_version:   '5.3.4-1'
-# puppetmodule::server_version:  '5.1.5-1'
-puppetmodule::release_version: '5.0.0-1'
-puppetmodule::agent_version:   '5.5.6-1'
-puppetmodule::server_version:  '5.3.5-1'
+# puppetmodule::agent_version:   '5.5.6-1'
+# puppetmodule::server_version:  '5.3.5-1'
+
+# puppetmodule::release_version: '6.0.0-1'
+# puppetmodule::agent_version:   '6.0.4-1'
+# puppetmodule::server_version:  '6.0.2-1'
+
+puppetmodule::release_version: ''
+puppetmodule::agent_version:   ''
+puppetmodule::server_version:  ''

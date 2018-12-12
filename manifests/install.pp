@@ -1,9 +1,9 @@
 # This class installs the puppet packages
 class puppetmodule::install (
     $release_version = $::puppetmodule::release_version,
-    $agent_version =   $::puppetmodule::agent_version,
-    $server_version =  $::puppetmodule::server_version,
-    $major_version =    $::puppetmodule::major_version,
+    $agent_version   = $::puppetmodule::agent_version,
+    $server_version  = $::puppetmodule::server_version,
+    $major_version   = $::puppetmodule::major_version,
 ){
   if $puppetmodule::major_version == 4 or 5 or 6 {
     # modify path before installing puppet 4
@@ -92,14 +92,16 @@ class puppetmodule::install (
       },
     }
 
-    file { 'puppet apt preferences':
-        ensure  => present,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        path    => $pref_path,
-        content => template($pref_template),
-        notify  => Class[puppetmodule::service],
+    unless  release_version = '' and agent_version = '' and  server_version = '' { 
+      file { 'puppet apt preferences':
+          ensure  => present,
+          owner   => 'root',
+          group   => 'root',
+          mode    => '0644',
+          path    => $pref_path,
+          content => template($pref_template),
+          notify  => Class[puppetmodule::service],
+      }
     }
 
     package { 'puppet-agent':
