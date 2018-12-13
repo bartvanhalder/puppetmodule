@@ -5,7 +5,7 @@ class puppetmodule::install (
     $server_version  = $::puppetmodule::server_version,
     $major_version   = $::puppetmodule::major_version,
 ){
-  if $puppetmodule::major_version == 4 or 5 or 6 {
+  if $major_version == 4 or 5 or 6 {
     # modify path before installing puppet 4
     # do not lock yourself out of the 'puppet loop'...
     file_line { 'path':
@@ -20,7 +20,7 @@ class puppetmodule::install (
     file { '/etc/apt/preferences.d/00-puppet.pref':
       ensure  => absent,
     }
-    if $puppetmodule::major_version == 4 {
+    if $major_version == 4 {
 
       $repo          = 'PC1'
       $pref_path     = '/etc/apt/preferences.d/00-puppet4.pref'
@@ -37,7 +37,7 @@ class puppetmodule::install (
       }
 
     }
-    elsif $puppetmodule::major_version == 5 {
+    elsif $major_version == 5 {
 
       $repo          = 'puppet5'
       $pref_path     = '/etc/apt/preferences.d/00-puppet5.pref'
@@ -51,7 +51,7 @@ class puppetmodule::install (
       ]
 
     }
-    elsif $puppetmodule::major_version == 6 {
+    elsif $major_version == 6 {
 
       $repo          = 'puppet6'
       $pref_path     = '/etc/apt/preferences.d/00-puppet6.pref'
