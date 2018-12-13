@@ -92,17 +92,24 @@ class puppetmodule::install (
       },
     }
 
-    unless  release_version = '' and agent_version = '' and  server_version = '' { 
-      file { 'puppet apt preferences':
-          ensure  => present,
-          owner   => 'root',
-          group   => 'root',
-          mode    => '0644',
-          path    => $pref_path,
-          content => template($pref_template),
-          notify  => Class[puppetmodule::service],
-      }
+    # check if any apt preferences are given
+    if  $release_version == '' and $agent_version == '' and  $server_version == '' {
+      $ensure_apt_prefs = absent
+    }    else {
+      $ensure_apt_prefs = present
     }
+
+    file { 'puppet apt preferences':
+        ensure  => $ensure_apt_prefs,
+        owner   => 'root',
+        group   => 'root',
+        mode    => '0644',
+        path    => $pref_path,
+        content => template($pref_template),
+        notify  => Class[puppetmodule::service],
+        force   => true,
+    }
+
 
     package { 'puppet-agent':
         ensure => latest,
