@@ -17,3 +17,4 @@ puppetmodule::puppetdb:        false
 puppetmodule::release_version: ''
 puppetmodule::agent_version:   ''
 puppetmodule::server_version:  ''
+puppetmodule::db_version:  ''

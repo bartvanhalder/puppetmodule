@@ -4,11 +4,12 @@ class puppetmodule (
     $topleveldomain,
     $dns_alt_names,
     $environment,
-    $major_version,
     $puppetdb,
+    $major_version,
     $release_version,
     $agent_version,
     $server_version,
+    $db_version,
 ) {
     include puppetmodule::install
     include puppetmodule::config

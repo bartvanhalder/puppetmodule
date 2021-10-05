@@ -3,6 +3,7 @@ class puppetmodule::install (
     $release_version = $::puppetmodule::release_version,
     $agent_version   = $::puppetmodule::agent_version,
     $server_version  = $::puppetmodule::server_version,
+    $db_version      = $::puppetmodule::db_version,
     $major_version   = $::puppetmodule::major_version,
 ){
   if $major_version == 4 or 5 or 6 {
