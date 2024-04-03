@@ -1,4 +1,4 @@
-# This class manaages all the components of a Puppet installation for server and agents
+# This class manages all the components of a Puppet installation for server and agents
 class puppetmodule (
     $master,
     $topleveldomain,
