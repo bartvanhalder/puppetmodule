@@ -13,7 +13,7 @@ class puppetmodule::config (
     $major_version =   $::puppetmodule::major_version,
     $puppetdb =        $::puppetmodule::puppetdb,
 ){
-    if $puppetmodule::major_version == 4 or 5 or 6 {
+    if $puppetmodule::major_version == 4 or 5 or 6 or 7 or 8 {
         if $master == true {
             $template       = 'puppetmodule/master.erb'
             exec { 'set permissions on puppet code directory for the puppet user':

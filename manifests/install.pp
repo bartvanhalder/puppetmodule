@@ -6,9 +6,9 @@ class puppetmodule::install (
     $db_version      = $::puppetmodule::db_version,
     $major_version   = $::puppetmodule::major_version,
 ){
-  if $major_version == 4 or 5 or 6 {
-    # modify path before installing puppet 4
-    # do not lock yourself out of the 'puppet loop'...
+  if $major_version == 4 or 5 or 6 or 7 or 8 {
+    # Modify path before installing puppet 4
+    # Do not lock yourself out of the 'puppet loop'...
     file_line { 'path':
       path  => '/etc/environment',
       line  => 'PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/opt/puppetlabs/bin"',
@@ -17,7 +17,7 @@ class puppetmodule::install (
       # and does not have the puppet bin dir in it
     }
 
-    # remove old puppet3-related stuff
+    # Remove old puppet3-related stuff
     file { '/etc/apt/preferences.d/00-puppet.pref':
       ensure  => absent,
     }
@@ -43,12 +43,14 @@ class puppetmodule::install (
       $repo          = 'puppet5'
       $pref_path     = '/etc/apt/preferences.d/00-puppet5.pref'
       $pref_template = 'puppetmodule/00-puppet5andup.erb'
-      $purge_packages = ['puppetlabs-release-pc1', 'puppet6-release']
+      $purge_packages = ['puppetlabs-release-pc1', 'puppet6-release', 'puppet7-release', 'puppet8-release']
       $purge_files = [
         '/etc/apt/sources.list.d/pc_repo.list',
         '/etc/apt/preferences.d/puppetlabs-pc1.list',
         '/etc/apt/preferences.d/00-puppet4.pref',
-        '/etc/apt/preferences.d/00-puppet6.pref'
+        '/etc/apt/preferences.d/00-puppet6.pref',
+        '/etc/apt/preferences.d/00-puppet7.pref',
+        '/etc/apt/preferences.d/00-puppet8.pref'
       ]
 
     }
@@ -57,16 +59,49 @@ class puppetmodule::install (
       $repo          = 'puppet6'
       $pref_path     = '/etc/apt/preferences.d/00-puppet6.pref'
       $pref_template = 'puppetmodule/00-puppet5andup.erb'
-      $purge_packages = ['puppetlabs-release-pc1', 'puppet5-release']
+      $purge_packages = ['puppetlabs-release-pc1', 'puppet5-release', 'puppet7-release', 'puppet8-release']
       $purge_files = [
         '/etc/apt/sources.list.d/pc_repo.list',
         '/etc/apt/preferences.d/puppetlabs-pc1.list',
         '/etc/apt/preferences.d/00-puppet4.pref',
-        '/etc/apt/preferences.d/00-puppet5.pref'
+        '/etc/apt/preferences.d/00-puppet5.pref',
+        '/etc/apt/preferences.d/00-puppet7.pref',
+        '/etc/apt/preferences.d/00-puppet8.pref'
+      ]
+    }
+    elsif $major_version == 7 {
+
+      $repo          = 'puppet7'
+      $pref_path     = '/etc/apt/preferences.d/00-puppet7.pref'
+      $pref_template = 'puppetmodule/00-puppet5andup.erb'
+      $purge_packages = ['puppetlabs-release-pc1', 'puppet5-release', 'puppet6-release', 'puppet8-release']
+      $purge_files = [
+        '/etc/apt/sources.list.d/pc_repo.list',
+        '/etc/apt/preferences.d/puppetlabs-pc1.list',
+        '/etc/apt/preferences.d/00-puppet4.pref',
+        '/etc/apt/preferences.d/00-puppet5.pref',
+        '/etc/apt/preferences.d/00-puppet6.pref',
+        '/etc/apt/preferences.d/00-puppet8.pref'
+      ]
+    }
+    elsif $major_version == 8 {
+
+      $repo          = 'puppet8'
+      $pref_path     = '/etc/apt/preferences.d/00-puppet8.pref'
+      $pref_template = 'puppetmodule/00-puppet5andup.erb'
+      $purge_packages = ['puppetlabs-release-pc1', 'puppet5-release', 'puppet6-release', 'puppet7-release']
+      $purge_files = [
+        '/etc/apt/sources.list.d/pc_repo.list',
+        '/etc/apt/preferences.d/puppetlabs-pc1.list',
+        '/etc/apt/preferences.d/00-puppet4.pref',
+        '/etc/apt/preferences.d/00-puppet5.pref',
+        '/etc/apt/preferences.d/00-puppet6.pref',
+        '/etc/apt/preferences.d/00-puppet7.pref',
+
       ]
     }
 
-    # EINDE van de PUPPET 4/5/6 selectie statements
+    # End of Puppet version selection statements
 
     $purge_packages.each | String $purge_package | {
       package { $purge_package:
