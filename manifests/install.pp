@@ -116,16 +116,30 @@ class puppetmodule::install (
       }
     }
 
-    apt::source { 'puppetlabs':
-      location => 'http://apt.puppetlabs.com',
-      repos    => $repo,
-      include  => {
-        'deb' => true,
-      },
-      key      => {
-        'id'     => '6F6B15509CF8E59E6E469F327F438280EF8D349F',
-        'server' => 'pgp.mit.edu',
-      },
+    if $release_version < 7 {
+      apt::source { 'puppetlabs':
+        location => 'http://apt.puppetlabs.com',
+        repos    => $repo,
+        include  => {
+          'deb' => true,
+        },
+        key      => {
+          'id'     => '6F6B15509CF8E59E6E469F327F438280EF8D349F',
+          'server' => 'pgp.mit.edu',
+        },
+      }
+    } else {
+      apt::source { 'puppetlabs':
+        location => 'http://apt.puppetlabs.com',
+        repos    => $repo,
+        include  => {
+          'deb' => true,
+        },
+        key      => {
+          'id'     => 'D6811ED3ADEEB8441AF5AA8F4528B6CD9E61EF26',
+          'server' => 'pgp.mit.edu',
+        },
+      }
     }
 
     # check if any apt preferences are given
