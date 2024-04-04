@@ -116,7 +116,7 @@ class puppetmodule::install (
       }
     }
 
-    if $release_version != 7 or 8 {
+    if $major_version < 7 {
       apt::source { 'puppetlabs':
         location => 'http://apt.puppetlabs.com',
         repos    => $repo,
